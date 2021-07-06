@@ -1,11 +1,32 @@
+
+import {auth, firebase} from '../services/firebase';
+
 import logoImg from '../assets/logo_mob.svg';
 //import logoGoogle from '../assets/images/icons8-google-logo.svg ';
 
 import '../styles/auth.scss';
 
 import {ButtonAsk} from '../components/ButtonAsk';
+import { useHistory } from 'react-router-dom';
 
 export function Home(){
+
+    const history = useHistory();
+    
+    //funçao que navega pelas paginas
+    function handleCreateRoom() {
+
+        //parte de atenticação do usuario
+        const provider = new firebase.auth.GoogleAuthProvider();
+
+        auth.signInWithPopup(provider).then(result => {
+            console.log(result);
+            
+        })
+
+        //history.push('/rooms/new');
+    }
+
     return(
         <div id="page-auth">
             <aside> 
@@ -16,7 +37,7 @@ export function Home(){
 
             <main>
                 <div className="main-content">
-                   <button className="create-room">
+                   <button onClick={handleCreateRoom} className="create-room">
                        Crie sua sala com o google
                    </button>
                   <div className="separator">
